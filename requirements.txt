@@ -1,0 +1,17 @@
+runpod
+torch>=2.0.0
+torchvision
+torchaudio
+numpy
+scipy
+librosa
+soundfile
+face-alignment
+dlib-bin
+imageio
+imageio-ffmpeg
+pydub
+gfpgan
+basicsr
+facexlib
+realesrgan

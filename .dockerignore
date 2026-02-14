@@ -1,0 +1,7 @@
+*.mp3
+*.mp4
+*.png
+*.wav
+test_endpoint.py
+__pycache__
+.git

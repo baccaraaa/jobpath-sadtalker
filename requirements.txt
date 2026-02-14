@@ -1,7 +1,4 @@
-runpod
-torch>=2.0.0
-torchvision
-torchaudio
+runpod>=1.6.0
 numpy
 scipy
 librosa

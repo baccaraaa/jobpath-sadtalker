@@ -17,12 +17,12 @@ def handler(job):
     job_input = job.get("input", {})
 
     # Check what files exist
-    sadtalker_exists = os.path.isdir("/app/SadTalker")
-    checkpoints_exist = os.path.isdir("/app/SadTalker/checkpoints")
+    sadtalker_exists = os.path.isdir("/SadTalker")
+    checkpoints_exist = os.path.isdir("/SadTalker/checkpoints")
 
     checkpoint_files = []
     if checkpoints_exist:
-        for f in os.listdir("/app/SadTalker/checkpoints"):
+        for f in os.listdir("/SadTalker/checkpoints"):
             checkpoint_files.append(f)
 
     return {

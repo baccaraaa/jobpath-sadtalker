@@ -1,6 +1,6 @@
-FROM runpod/base:0.4.0-cuda12.1.0
+FROM runpod/pytorch:2.1.0-py3.10-cuda12.1.0-devel-ubuntu22.04
 
-WORKDIR /app
+WORKDIR /
 
 # System dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -11,20 +11,20 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
     && rm -rf /var/lib/apt/lists/*
 
-# Python dependencies (before cloning, for Docker layer caching)
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+# Python dependencies
+COPY requirements.txt /requirements.txt
+RUN pip install --no-cache-dir -r /requirements.txt
 
 # Clone SadTalker
-RUN git clone --depth 1 https://github.com/OpenTalker/SadTalker.git /app/SadTalker
+RUN git clone --depth 1 https://github.com/OpenTalker/SadTalker.git /SadTalker
 
-# Install SadTalker's own requirements
-RUN cd /app/SadTalker && pip install --no-cache-dir -r requirements.txt || true
+# Install SadTalker's own requirements (ignore errors for already-installed packages)
+RUN cd /SadTalker && pip install --no-cache-dir -r requirements.txt || true
 
 # Download pretrained models (baked into image for instant cold-start)
-RUN cd /app/SadTalker && bash scripts/download_models.sh
+RUN cd /SadTalker && bash scripts/download_models.sh
 
-# Copy handler
-COPY handler.py .
+# Copy handler to root
+COPY handler.py /handler.py
 
-CMD ["python", "-u", "handler.py"]
+CMD ["python3", "-u", "/handler.py"]

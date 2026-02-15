@@ -46,7 +46,9 @@ RUN find /SadTalker -name "*.py" \
 # THOROUGH verification — import everything SadTalker uses at runtime
 RUN python -c "\
 import torch, torchvision, runpod, safetensors, numpy, scipy, librosa, cv2, kornia; \
-import face_alignment, imageio, pydub, yacs, numba, tqdm, joblib; \
+import face_alignment, pydub, yacs, numba, tqdm, joblib; \
+import imageio; print(f'imageio={imageio.__version__}'); \
+from imageio.plugins import ffmpeg; \
 from basicsr.utils import img2tensor; \
 from basicsr.data.degradations import circular_lowpass_kernel; \
 from facexlib.utils.face_restoration_helper import FaceRestoreHelper; \

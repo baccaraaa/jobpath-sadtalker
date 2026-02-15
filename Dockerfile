@@ -18,9 +18,9 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install PyTorch with CUDA (must be before other deps)
 RUN pip install --no-cache-dir \
-    torch==2.1.2+cu121 \
-    torchvision==0.16.2+cu121 \
-    torchaudio==2.1.2+cu121 \
+    torch==2.2.2+cu121 \
+    torchvision==0.17.2+cu121 \
+    torchaudio==2.2.2+cu121 \
     --index-url https://download.pytorch.org/whl/cu121
 
 # Python dependencies

@@ -11,3 +11,4 @@ gfpgan
 basicsr
 facexlib
 realesrgan
+safetensors

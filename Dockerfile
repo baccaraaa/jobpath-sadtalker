@@ -1,4 +1,4 @@
-FROM runpod/pytorch:2.1.0-py3.10-cuda12.1.0-devel-ubuntu22.04
+FROM runpod/pytorch:1.0.3-cu1290-torch260-ubuntu2204
 
 WORKDIR /
 
@@ -12,6 +12,10 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
+# Make sure python is available
+RUN ln -sf $(which python3.11) /usr/local/bin/python && \
+    ln -sf $(which python3.11) /usr/local/bin/python3
+
 # Python dependencies
 COPY requirements.txt /requirements.txt
 RUN pip install --no-cache-dir -r /requirements.txt
@@ -22,11 +26,10 @@ RUN git clone --depth 1 https://github.com/OpenTalker/SadTalker.git /SadTalker
 # Install SadTalker dependencies
 RUN cd /SadTalker && pip install --no-cache-dir -r requirements.txt || true
 
-# Verify python is accessible and print path for debugging
-RUN which python && python --version
+# Verify python is accessible
+RUN which python && python --version && python -c "import torch; print(f'PyTorch {torch.__version__}, CUDA {torch.cuda.is_available()}')"
 
 # Copy handler
 COPY handler.py /handler.py
 
-# Use shell form so conda PATH is picked up
 CMD python -u /handler.py

@@ -2,9 +2,9 @@ FROM runpod/base:1.0.3-cuda1281-ubuntu2204
 
 WORKDIR /
 
-# Python symlinks (runpod/base has python3.11)
-RUN ln -sf $(which python3.11) /usr/local/bin/python && \
-    ln -sf $(which python3.11) /usr/local/bin/python3
+# Use python3.12 (matches pip's default in this image)
+RUN ln -sf $(which python3.12) /usr/local/bin/python && \
+    ln -sf $(which python3.12) /usr/local/bin/python3
 
 # System dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
@@ -16,11 +16,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     wget \
     && rm -rf /var/lib/apt/lists/*
 
-# Install PyTorch with CUDA (must be before other deps)
+# Install PyTorch with CUDA
 RUN pip install --no-cache-dir \
-    torch==2.2.2+cu121 \
-    torchvision==0.17.2+cu121 \
-    torchaudio==2.2.2+cu121 \
+    torch==2.5.1+cu121 \
+    torchvision==0.20.1+cu121 \
+    torchaudio==2.5.1+cu121 \
     --index-url https://download.pytorch.org/whl/cu121
 
 # Python dependencies

@@ -9,22 +9,24 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1-mesa-glx \
     libglib2.0-0 \
     git \
+    wget \
     && rm -rf /var/lib/apt/lists/*
 
 # Python dependencies
 COPY requirements.txt /requirements.txt
 RUN pip install --no-cache-dir -r /requirements.txt
 
-# Clone SadTalker
+# Clone SadTalker (code only, models will be on Network Volume)
 RUN git clone --depth 1 https://github.com/OpenTalker/SadTalker.git /SadTalker
 
-# Install SadTalker's own requirements (ignore errors for already-installed packages)
+# Install SadTalker dependencies
 RUN cd /SadTalker && pip install --no-cache-dir -r requirements.txt || true
 
-# Download pretrained models (baked into image for instant cold-start)
-RUN cd /SadTalker && bash scripts/download_models.sh
+# Verify python is accessible and print path for debugging
+RUN which python && python --version
 
-# Copy handler to root
+# Copy handler
 COPY handler.py /handler.py
 
-CMD ["python3", "-u", "/handler.py"]
+# Use shell form so conda PATH is picked up
+CMD python -u /handler.py

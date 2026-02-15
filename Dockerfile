@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     libgl1-mesa-glx \
     libglib2.0-0 \
     git \
-    wget \
+    curl \
     && rm -rf /var/lib/apt/lists/*
 
 # Install PyTorch with CUDA

@@ -55,7 +55,7 @@ def ensure_models():
                 continue
             print(f"[DOWNLOAD] {filename}...", flush=True)
             subprocess.run(
-                ["wget", "-q", "-O", str(filepath), url],
+                ["curl", "-L", "-s", "-o", str(filepath), url],
                 check=True,
                 timeout=300,
             )

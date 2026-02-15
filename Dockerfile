@@ -45,7 +45,7 @@ RUN find /SadTalker -name "*.py" \
 
 # THOROUGH verification — import everything SadTalker uses at runtime
 RUN python -c "\
-import torch, runpod, safetensors, numpy, scipy, librosa, cv2, kornia; \
+import torch, torchvision, runpod, safetensors, numpy, scipy, librosa, cv2, kornia; \
 import face_alignment, imageio, pydub, yacs, numba, tqdm, joblib; \
 from basicsr.utils import img2tensor; \
 from basicsr.data.degradations import circular_lowpass_kernel; \
@@ -53,7 +53,6 @@ from facexlib.utils.face_restoration_helper import FaceRestoreHelper; \
 from gfpgan import GFPGANer; \
 print(f'ALL OK: torch={torch.__version__} tv={torchvision.__version__} np={numpy.__version__}'); \
 print(f'CUDA build: {torch.version.cuda}'); \
-import torchvision; \
 " && echo "=== ALL IMPORTS VERIFIED ==="
 
 # Copy handler

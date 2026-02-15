@@ -1,5 +1,5 @@
 # Core (pinned for SadTalker compatibility)
-numpy==1.24.4
+numpy==1.23.4
 scipy==1.10.1
 scikit-image==0.19.3
 
